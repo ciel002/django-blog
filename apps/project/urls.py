@@ -6,4 +6,5 @@ app_name = 'project'
 urlpatterns = [
     path('', views.index_view, name='index'),
     path('yzb/', views.yzb_view, name='yzb'),
+    # path('yzb/page/<page>', views.yzb_view, name='yzb'),
 ]

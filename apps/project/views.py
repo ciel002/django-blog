@@ -1,8 +1,9 @@
-from django.db.models import Count, F
+from django.db.models import F
 from django.shortcuts import render
 
 # Create your views here.
 from project.models import Project, Yzb
+from utils.pagination import pagination
 from utils.template import template_context
 
 
@@ -18,6 +19,7 @@ def yzb_view(request):
     code = request.GET.get('code', '')
     tj = request.GET.get('tj', '')
     order = request.GET.get('order', '')
+    page = int(request.GET.get('p', 1))
     yzb_while = {}
     if year:
         yzb_while['year'] = year
@@ -30,9 +32,12 @@ def yzb_view(request):
         if order == 'zongfen':
             infos = infos.annotate(zongfen=F('chushi') + F('fushi')).order_by('-zongfen')
         else:
-            infos = infos.order_by('-'+order)
+            infos = infos.order_by('-' + order)
+
+    pages, page_range = pagination(page=page, queryset=infos, per_page=100)
 
     codes = Yzb.objects.values("code", "code_name").distinct()
 
-    context = template_context(tag='project', infos=infos, codes=codes, year=year, code=code, tj=tj, order=order)
+    context = template_context(tag='project', pages=pages, page_range=page_range, codes=codes, year=year, code=code,
+                               tj=tj, order=order)
     return render(request, 'yzb.html', context=context)
