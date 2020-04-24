@@ -67,23 +67,23 @@
                                     <tr>
                                         <th>序号</th>
                                         <th>录取年份</th>
-                                        <th>考生编号</th>
+                                        <th class="hidden-phone">考生编号</th>
                                         <th>姓名</th>
-                                        <th>专业代码</th>
+                                        <th class="hidden-phone">专业代码</th>
                                         <th>专业名称</th>
                                         <th>初试分数</th>
                                         <th>复试分数</th>
                                         <th>总分数</th>
                                         <th>是否调剂</th>
-                                        <th>备注</th>
+                                        <th class="hidden-phone">备注</th>
                                     </tr>
                                     {% for info in infos %}
                                         <tr>
                                             <td>{{ forloop.counter }}</td>
                                             <td>{{ info.year }}</td>
-                                            <td>{{ info.num }}</td>
+                                            <td class="hidden-phone">{{ info.num }}</td>
                                             <td>{{ info.name }}</td>
-                                            <td>{{ info.code }}</td>
+                                            <td class="hidden-phone">{{ info.code }}</td>
                                             <td>{{ info.code_name }}</td>
                                             <td>{{ info.chushi }}</td>
                                             <td>{{ info.fushi }}</td>
@@ -93,7 +93,7 @@
                                             {% else %}
                                                 <td>一志愿</td>
                                             {% endif %}
-                                            <td>{{ info.mark }}</td>
+                                            <td class="hidden-phone">{{ info.mark }}</td>
                                         </tr>
                                     {% endfor %}
                                 </table>
