@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% block title %}主页{% endblock %}
+{% block top_javascript %}
+    <script>
+        function slider_url(obj) {
+            window.location = $(obj).data('url')
+        }
+    </script>
+{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <div class="container">
+            <div class="row">
+                <div class="span12">
+                    <!-- slider -->
+                    <div class="flexslider">
+                        <ul class="slides">
+                            {% for slider in sliders %}
+                                <li><img src="{{ slider.image.url }}" alt=""
+                                         data-url="{% url 'blog:post' slider.post.title %}"
+                                         onclick="slider_url(this)"></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <span id="responsiveFlag"></span>
+                    <div class="block-slogan">
+                        <h2>你好 世界!</h2>
+                        <div>
+                            <p>本网站为作者在考研期间所编写！</p>
+{#                            <p>一方面是展示近期的学习成果，方便与大家交流探讨，共同进步。</p>#}
+{#                            <p>另一方面是为了摄影爱好，将照片发布在网站上。</p>#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- content -->
+
+        <div id="content" class="content-extra">
+            <div class="ic"></div>
+            <div class="row-1">
+                <div class="container">
+                    <div class="row">
+                        <article class="span12">
+                            <h4>最新图片</h4>
+                        </article>
+                        <div class="clear"></div>
+                        <ul class="portfolio clearfix">
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/1.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/2.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/3.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/4.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/5.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/6.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/7.jpg' %}"></a>
+                            </li>
+                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
+                                                                                                                src="{% static 'img/work/8.jpg' %}"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row-2">
+                <div class="container">
+                    <h3>暂未开发</h3>
+{#                    <h3>Easy to Use. Totally Free to Download. Made with love!</h3>#}
+{#                    <p>The complete template is created using the Bootstrap framework, which is highly customizable with#}
+{#                        lots of options.</p>#}
+                </div>
+            </div>
+            <div class="row-1">
+                <div class="container">
+                    <div class="row">
+                        <article class="span12">
+                            <h4>博客文章</h4>
+                        </article>
+                        <ul class="thumbnails thumbnails-1">
+                            {% for post in posts %}
+                                <li class="span3">
+                                    <div class="thumbnail thumbnail-1">
+                                        <img src="{{ post.image.url }}" alt="">
+                                        <section>
+                                            <a href="{% url 'blog:post' post.title %}"><h3>{{ post.title }}</h3></a>
+                                            <div class="meta">
+                                                <time datetime="{{ post.add_time }}" class="date-1"><i class="icon-calendar"></i>
+                                                    {{ post.add_time }}
+                                                </time>
+                                                <div class="name-author"><i class="icon-user"></i> <a href="#">Ciel</a>
+                                                </div>
+{#                                                <a href="#" class="comments"><i class="icon-comment"></i> 7 comments</a>#}
+                                            </div>
+                                            <div class="clear"></div>
+{#                                            <p>Vivamus sollicitudin libero auctor arcu pulvinar commodo.</p>#}
+                                            <a href="{% url 'blog:post' post.title %}" class="btn btn-1">阅读更多</a></section>
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <article class="span6">
+                        <h3>关于我</h3>
+                        <div class="wrapper">
+                            <figure class="img-indent"><img src="{% static 'img/15.jpg' %}" alt=""/></figure>
+                            <div class="inner-1 overflow extra">
+                                <div class="txt-1">Mauris scelerisque odio quis leo viverra ac porttitor sem blandit.
+                                    Sed
+                                    tincidunt mattis varius. Nunc sodales ipsum nisl, eget lacinia nibh.
+                                </div>
+                                Cras lacus tortor, tempus vitae porta nec, hendrerit id dolor. Nam volutpat gravida
+                                porta.
+                                Suspendisse turpis nibh, volutpat.
+                            </div>
+                        </div>
+                    </article>
+                    <article class="span6">
+                        <h3>一些有用的链接</h3>
+                        <div class="wrapper">
+                            <ul class="list list-pad">
+                                <li><a href="http://ysu.edu.cn/">燕山大学官网</a></li>
+                                <li><a href="https://zsjyc.ysu.edu.cn/ssszsxxw/wzsy.htm">燕山大学硕士招生网</a></li>
+                                <li><a href="https://ise.ysu.edu.cn/">燕山大学信息科学与工程学院</a></li>
+                                <li><a href="http://www.swun.edu.cn/">西南民族大学官网</a></li>
+                            </ul>
+                            <ul class="list list-pad">
+                                <li><a href="https://www.liaoxuefeng.com/wiki/1016959663602400">Python教程</a></li>
+                                <li><a href="https://www.django.cn/">Djando中文网</a></li>
+                                <li><a href="https://dormousehole.readthedocs.io/en/latest/">Flask教程</a></li>
+                                <li><a href="https://scrapy-chs.readthedocs.io/zh_CN/1.0/">Scrapy1.0文档</a></li>
+                            </ul>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

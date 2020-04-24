@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}
+    燕大研究生复试录取信息
+{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <!--  content  -->
+        <div id="content">
+            <div class="ic"></div>
+            <div class="container">
+                <div class="row">
+                    <article class="span12">
+                        <div class="inner-1">
+                            <div class="yzb-select">
+                                <div class="controls">
+                                    <select id="yzb-year" name="year" class="span3 yzb-s">
+                                        <option {% if year == '' %}selected{% endif %}
+                                                data-url="?code={{ code }}&tj={{ tj }}&order={{ order }}">全部年份
+                                        </option>
+                                        <option {% if year == "2019" %}selected{% endif %}
+                                                data-url="?year=2019&code={{ code }}&tj={{ tj }}&order={{ order }}">
+                                            2019
+                                        </option>
+                                        <option {% if year == "2018" %}selected{% endif %}
+                                                data-url="?year=2018&code={{ code }}&tj={{ tj }}&order={{ order }}">
+                                            2018
+                                        </option>
+                                    </select>
+                                    <select id="yzb-code" name="code" class="span3 yzb-s">
+                                        <option {% if code == '' %}{% endif %}
+                                                data-url="?year={{ year }}&tj={{ tj }}&order={{ order }}">{{ x.code_name }}全部专业
+                                        </option>
+                                        {% for x in codes %}
+                                            <option {% if x.code == code %}selected{% endif %}
+                                                    data-url="?year={{ year }}&code={{ x.code }}&tj={{ tj }}&order={{ order }}">{{ x.code_name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <select id="yzb-tj" name="tj" class="span3 yzb-s">
+                                        <option {% if tj == '' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&order={{ order }}">全部类型
+                                        </option>
+                                        <option {% if tj == '0' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&tj=0&order={{ order }}">一志愿
+                                        </option>
+                                        <option {% if tj == '1' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&tj=1&order={{ order }}">调剂
+                                        </option>
+                                    </select>
+                                    <select id="yzb-order" name="order" class="span3 yzb-s">
+                                        <option {% if order == '' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}">排序：考生编号
+                                        </option>
+                                        <option {% if order == 'chushi' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}&order=chushi">排序：初试分数
+                                        </option>
+                                        <option {% if order == 'fushi' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}&order=fushi">排序：复试分数
+                                        </option>
+                                        <option {% if order == 'zongfen' %}selected{% endif %}
+                                                data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}&order=zongfen">排序：总分数
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="yzb-info">
+                                <table class="table table-bordered table-hover data-table">
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>录取年份</th>
+                                        <th>考生编号</th>
+                                        <th>姓名</th>
+                                        <th>专业代码</th>
+                                        <th>专业名称</th>
+                                        <th>初试分数</th>
+                                        <th>复试分数</th>
+                                        <th>总分数</th>
+                                        <th>是否调剂</th>
+                                        <th>备注</th>
+                                    </tr>
+                                    {% for info in infos %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ info.year }}</td>
+                                            <td>{{ info.num }}</td>
+                                            <td>{{ info.name }}</td>
+                                            <td>{{ info.code }}</td>
+                                            <td>{{ info.code_name }}</td>
+                                            <td>{{ info.chushi }}</td>
+                                            <td>{{ info.fushi }}</td>
+                                            <td>{{ info.chushi|add:info.fushi }}</td>
+                                            {% if info.is_tj %}
+                                                <td>调剂</td>
+                                            {% else %}
+                                                <td>一志愿</td>
+                                            {% endif %}
+                                            <td>{{ info.mark }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bottom_javascript %}
+    <script>
+        $(function () {
+            $(".yzb-s").change(function () {
+                window.location.href = $(this).children('option:selected').data('url');
+            });
+        });
+    </script>
+{% endblock %}

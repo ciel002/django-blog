@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <!--  content  -->
+        <div id="content">
+            <div class="ic"></div>
+            <div class="container">
+                <div class="row">
+                    <article class="span12">
+                        <div class="inner-1">
+                            <div class="post-detail">
+                                <h3>{{ post.title }}</h3>
+                                <div class="post-meta">
+                                    <time datetime="{{ post.add_time }}" class="date-1"><i class="icon-calendar icon-white"></i>
+                                        {{ post.add_time }}
+                                    </time>
+                                    <div class="name-author"><i class="icon-user icon-white"></i> <a href="#">Ciel</a>
+                                    </div>
+{#                                    <a href="#" class="comments"><i class="icon-comment icon-white"></i> 11 comments</a>#}
+                                </div>
+                                <div class="clear"></div>
+                                <img alt="" src="{{ post.image.url }}">
+                                <div class="post-content post-inner">
+                                    {{ post.content|safe }}
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bottom_javascript %}
+    <script>
+    $(function () {
+        $(".post-detail>.clear").next().addClass("center");
+    })
+    </script>
+{% endblock %}

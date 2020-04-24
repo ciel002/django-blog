@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}项目{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <!-- content -->
+        <div id="content">
+            <div class="ic"></div>
+            <div class="container">
+                <div class="row">
+                    <article class="span12">
+                        <h4>项目</h4>
+                    </article>
+                    <div class="clear"></div>
+                    <ul class="thumbnails thumbnails-1 list-services">
+                        {% for project in projects %}
+                            <li class="span4">
+                                <div class="thumbnail thumbnail-1"><img src="{{ project.image.url }}" alt="">
+                                    <section><a href="{{ project.url }}" class="link-1">{{ project.name }} </a>
+                                        <p>{{ project.desc }}</p>
+                                    </section>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

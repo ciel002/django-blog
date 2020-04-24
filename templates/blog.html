@@ -1,0 +1,131 @@
+{% extends 'base.html' %}
+{% block title %}博客{% endblock %}
+{% block top_javascript %}
+    <script>
+        jQuery(window).load(function () {
+            $x = $(window).width();
+            if ($x > 1024) {
+                jQuery("#content .row").preloader();
+            }
+
+            jQuery(".list-blog li:last-child").addClass("last");
+            jQuery(".list li:last-child").addClass("last");
+
+
+            jQuery('.spinner').animate({'opacity': 0}, 1000, 'easeOutCubic', function () {
+                jQuery(this).css('display', 'none')
+            });
+        });
+
+    </script>
+{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <!--  content  -->
+        <div id="content">
+            <div class="ic"></div>
+            <div class="container">
+                <div class="row">
+                    <article class="span8">
+                        <div class="inner-1">
+                            <ul class="list-blog">
+                                {% for post in pages %}
+                                    <li>
+                                        <h3><a href="{% url 'blog:post' post.title %}">{{ post.title }}</a></h3>
+                                        <time datetime="2012-11-08" class="date-1">{{ post.add_time }}</time>
+                                        <div class="name-author">by <a href="#">Ciel</a></div>
+                                        {#                                        <a href="#" class="comments">9 comments</a>#}
+                                        <div class="clear"></div>
+                                        <img alt="" src="{{ post.image.url }}">
+                                        {% if post.abstract %}
+                                            <p>{{ post.abstract }}</p>
+                                        {% endif %}
+                                        <a href="{% url 'blog:post' post.title %}" class="btn btn-1 pull-right">阅读更多</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+
+                            {% if pages %}
+                                <div class="pagination pagination-centered">
+                                    <ul>
+                                        {% if pages.has_previous %}
+                                            <li><a class="page-link"
+                                                   href="{% url 'blog:index_page' pages.previous_page_number %}">上一页</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="disabled"><a class="page-link">上一页</a></li>
+                                        {% endif %}
+
+                                        {% for page_number in page_range %}
+                                            <li class="page-item {% if page_number == pages.number %}active{% endif %}">
+                                                <a
+                                                        class="page-link"
+                                                        href="{% url 'blog:index_page' page_number %}">{{ page_number }}</a>
+                                            </li>
+                                        {% endfor %}
+
+                                        {% if pages.has_next %}
+                                            <li><a class="page-link"
+                                                   href="{% url 'blog:index_page' pages.next_page_number %}">下一页</a>
+                                            </li>
+                                        {% else %}
+                                            <li class="disabled"><a class="page-link">下一页</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% else %}
+                                <h3>没有文章</h3>
+                            {% endif %}
+                            <!-- 分页 -->
+
+                        </div>
+                    </article>
+                    <article class="span4">
+                        <h3 class="extra">搜索</h3>
+                        <form id="search" action="{% url 'blog:index' %}" method="GET" accept-charset="utf-8">
+                            <div class="clearfix">
+                                {% csrf_token %}
+                                <input type="text" name="s" onBlur="if(this.value=='') this.value=''"
+                                       onFocus="if(this.value =='' ) this.value=''">
+                                <a href="#" onClick="document.getElementById('search').submit()"
+                                   class="btn btn-1">搜索</a>
+                            </div>
+                        </form>
+                        <h3>分类</h3>
+                        <ul class="list extra extra1">
+                            {% for category in categories %}
+                                <li>
+                                    <a href="{% url 'blog:index_category' category.sub_name %}">{{ category.name }}
+                                        ({{ category.post_set.count }})</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+
+                        <!-- 归档 -->
+                        <h3>Archive</h3>
+                        <div class="wrapper">
+                            <ul class="list extra2 list-pad ">
+                                <li><a href="#">May 2012</a></li>
+                                <li><a href="#">April 2012</a></li>
+                                <li><a href="#">March 2012</a></li>
+                                <li><a href="#">February 2012</a></li>
+                                <li><a href="#">January 2012</a></li>
+                                <li><a href="#">December 2011</a></li>
+                            </ul>
+                            <ul class="list extra2">
+                                <li><a href="#">November 2012</a></li>
+                                <li><a href="#">October 2012</a></li>
+                                <li><a href="#">September 2012</a></li>
+                                <li><a href="#">August 2012</a></li>
+                                <li><a href="#">July 2012</a></li>
+                                <li><a href="#">June 2012</a></li>
+                            </ul>
+                        </div>
+                        <!-- 归档 -->
+
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

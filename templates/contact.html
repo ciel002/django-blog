@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% block title %}联系我{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <!-- content -->
+        <div id="content">
+            <div class="ic"></div>
+            <div class="container">
+                <div class="row">
+                    <article class="span8">
+                        <h3>联系我</h3>
+                        <div class="inner-1">
+                            <form id="contact-form">
+                                {% csrf_token %}
+                                <div class="success"> 您的消息已经发送成功! <strong> 不久将会与您取得联系. </strong></div>
+                                <div class="error"> 您的消息没有发送成功! <strong> 请仔细检查您所填写的消息是否合法 .</strong></div>
+                                <div>
+                                    <label class="name">
+                                        <input id="nickname" name="nickname" type="text" placeholder="您的昵称">
+                                        <br>
+                                        <span class="empty">*昵称必须填写，以作为回信称呼.</span>
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="email">
+                                        <input id="email" name="email" type="email" placeholder="您的邮箱">
+                                        <br>
+                                        <span class="error">*这不是一个有效的邮箱地址.</span> <span
+                                            class="empty">*邮箱地址必须填写，以作为回信地址.</span> </label>
+                                </div>
+                                <div>
+                                    <label class="message">
+                                        <textarea id="message" name="message" placeholder="邮件内容"></textarea>
+                                        <br>
+                                        <span class="error">*邮件内容太短.</span> <span class="empty">*邮件内容必须填写.</span>
+                                    </label>
+                                </div>
+                                <div class="buttons-wrapper">
+                                    <input class="btn btn-1" type="reset" name="reset" style="display: none;"
+                                           id="resetInfo"/>
+                                    <a class="btn btn-1" data-type="reset">清空</a>
+                                    <a class="btn btn-1" data-type="submit">发送</a>
+                                </div>
+                            </form>
+                        </div>
+                    </article>
+                    <article class="span4">
+                        <h3>联系信息</h3>
+                        <div class="map">
+                            <iframe src="{% url 'home:map' %}" width="600" height="300" frameborder="0"
+                                    scrolling="no"></iframe>
+                        </div>
+                        <address class="address-1">
+                            <strong>河北省秦皇岛市,<br>
+                                海港区河北大街,<br>
+                                西段438号.</strong>
+                            <div class="overflow"><span>Mobile:</span>+86 11111111111<br>
+                                {#                                <span>GitHub:</span>+91 12345 67890 <br>#}
+                                <span>E-mail:</span>{qq}@qq.com<br>
+                                <span>QQ:</span>1102839480
+                            </div>
+                        </address>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bottom_javascript %}
+    <script>
+        $(function () {
+            function checkemail(email) {
+                var reg = new RegExp(/^\S+@\S+\.\S{2,}$/);
+                return reg.test(email);
+            }
+
+            $("a[data-type='reset']").on('click', function () {
+                $("#resetInfo").trigger("click");
+            });
+
+            $("a[data-type='submit']").on('click', function () {
+                var key1 = false;
+                var key2 = false;
+                var key3 = false;
+                var nickname = $("#nickname").val();
+                var email = $("#email").val();
+                var message = $("#message").val();
+
+                <!-- 验证昵称是否合法 -->
+                if (nickname.length == 0) {
+                    $("label[class='name'] .empty").css('display', 'block');
+                    key1 = false;
+                } else {
+                    $("label[class='name'] .empty").css('display', 'none');
+                    key1 = true;
+                }
+
+                <!-- 验证邮箱是否合法 -->
+                if (email.length == 0) {
+                    $("label[class='email'] .empty").css('display', 'block');
+                    key2 = false;
+                } else {
+                    $("label[class='email'] .empty").css('display', 'none');
+                    if (checkemail(email)) {
+                        $("label[class='email'] .error").css('display', 'none');
+                        key2 = true;
+                    } else {
+                        $("label[class='email'] .error").css('display', 'block');
+                        key2 = false;
+                    }
+                }
+
+                <!-- 验证消息是否合法 -->
+                if (message.length == 0) {
+                    $("label[class='message'] .empty").css('display', 'block');
+                    key3 = false;
+                } else {
+                    $("label[class='message'] .empty").css('display', 'none');
+                    key3 = true;
+                }
+
+                if (key1 && key2 && key3) {
+                    $.ajax({
+                        url: '{% url 'home:send_contact_email' %}',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: $("#contact-form").serialize(),
+                        success: function (res) {
+                            if (res.code == 200) {
+                                $("#contact-form>.error").css('display', 'none');
+                                $("#contact-form>.success").css('display', 'block');
+                                $("#resetInfo").trigger("click");
+                            } else {
+                                $("#contact-form>.success").css('display', 'none');
+                                $("#contact-form>.error").css('display', 'block');
+                            }
+                        }
+                    })
+                }
+            })
+        })
+    </script>
+{% endblock %}
