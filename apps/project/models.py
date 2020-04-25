@@ -14,7 +14,7 @@ class Project(models.Model):
     url = models.CharField(max_length=100, verbose_name='项目URL地址', unique=True, null=False, blank=False,
                            help_text='项目URL地址，以/开始的地址')
     desc = models.CharField(max_length=200, verbose_name='项目说明')
-    show = models.BooleanField(choices=((0, '不显示'), (1, '显示')), verbose_name='是否显示', default=0)
+    show = models.BooleanField(choices=((0, '不显示'), (1, '显示')), verbose_name='是否显示')
     add_time = models.DateTimeField(default=now)
 
     class Meta:
