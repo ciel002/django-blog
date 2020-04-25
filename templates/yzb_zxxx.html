@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}
+    燕大研究生复试录取信息
+{% endblock %}
+{% block main %}
+    <div class="bg-content">
+        <!--  content  -->
+        <div id="content">
+            <div class="ic"></div>
+            <div class="container">
+                <div class="row">
+                    <article class="span12">
+                        <div class="inner-1">
+                            <h3 class="center">输入邮箱来获取燕大研招网的最新消息</h3>
+                            <form class="form-inline center yzb-zxxx-form" method="post">
+                                <h5>{{ error }}{{ success }}</h5>
+                                {% csrf_token %}
+                                <input name="email" type="text" class="input-xlarge" placeholder="请输入邮箱">
+                                <button type="submit" class="btn">提交</button>
+                            </form>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block bottom_javascript %}
+    <script>
+        $(function () {
+            $(".yzb-s").change(function () {
+                window.location.href = $(this).children('option:selected').data('url');
+            });
+        });
+    </script>
+{% endblock %}

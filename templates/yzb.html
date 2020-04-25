@@ -82,7 +82,7 @@
                                     </tr>
                                     {% for info in pages %}
                                         <tr>
-                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ forloop.counter|add:page_count }}</td>
                                             <td>{{ info.year }}</td>
                                             <td class="hidden-phone">{{ info.num }}</td>
                                             <td>{{ info.name }}</td>
@@ -103,7 +103,9 @@
                                 <div class="pagination pagination-centered">
                                     <ul>
                                         {% if pages.has_previous %}
-                                            <li><a class="page-link" href="?p={{ pages.previous_page_number }}&year={{ year }}&code={{ code }}&tj={{ tj }}&order={{ order }}">上一页</a></li>
+                                            <li><a class="page-link"
+                                                   href="?p={{ pages.previous_page_number }}&year={{ year }}&code={{ code }}&tj={{ tj }}&order={{ order }}">上一页</a>
+                                            </li>
                                         {% else %}
                                             <li class="disabled"><a class="page-link">上一页</a></li>
                                         {% endif %}
@@ -116,7 +118,9 @@
                                         {% endfor %}
 
                                         {% if pages.has_next %}
-                                            <li><a class="page-link" href="?p={{ pages.next_page_number }}&year={{ year }}&code={{ code }}&tj={{ tj }}&order={{ order }}">下一页</a></li>
+                                            <li><a class="page-link"
+                                                   href="?p={{ pages.next_page_number }}&year={{ year }}&code={{ code }}&tj={{ tj }}&order={{ order }}">下一页</a>
+                                            </li>
                                         {% else %}
                                             <li class="disabled"><a class="page-link">下一页</a></li>
                                         {% endif %}
