@@ -5,7 +5,7 @@ from django.shortcuts import render
 from blog.models import Post
 from home.forms import ContactEmailForm
 from home.models import Banner
-from utils.email import send_contact_mail
+from utils.email_util import send_contact_mail
 from utils.template import template_context
 
 
