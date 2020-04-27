@@ -67,6 +67,7 @@ class YzbUniversityName(models.Model):
 
 class YzbVisit(models.Model):
     ip = models.GenericIPAddressField(verbose_name='IP地址', null=False)
+    region = models.CharField(max_length=40, verbose_name='归属地', default="")
     url = models.URLField(verbose_name='访问的地址', null=False)
     add_time = models.DateTimeField(default=now)
 
