@@ -27,12 +27,6 @@ class Project(models.Model):
     def __repr__(self):
         return "<Project %s>" % self.name
 
-    # def image_350_262_url(self):
-    #     if self.image_350_262 and hasattr(self.image_350_262, 'url'):
-    #         return self.image_350_262.url
-    #     else:
-    #         return self.image.url
-
 
 class Yzb(models.Model):
     num = models.CharField(max_length=20, verbose_name='考生编号', null=False, blank=False, primary_key=True)
@@ -54,3 +48,34 @@ class Yzb(models.Model):
 
     def __repr__(self):
         return "<Yzb %s:%s>" % (self.name, self.chushi + self.fushi)
+
+
+class YzbUniversityName(models.Model):
+    code = models.CharField(max_length=10, verbose_name='高校代码', null=False, primary_key=True)
+    name = models.CharField(max_length=30, verbose_name='高校名称', null=False)
+
+    class Meta:
+        verbose_name = '燕大研招办|高校名称代码'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "<YzbUniversityName %s>" % self.name
+
+    def __repr__(self):
+        return "<YzbUniversityName %s>" % self.name
+
+
+class YzbVisit(models.Model):
+    ip = models.GenericIPAddressField(verbose_name='IP地址', null=False)
+    url = models.URLField(verbose_name='访问的地址', null=False)
+    add_time = models.DateTimeField(default=now)
+
+    class Meta:
+        verbose_name = '燕大研招办|高校名称代码'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "<YzbVisit IpAddress %s>" % self.ip
+
+    def __repr__(self):
+        return "<YzbVisit IpAddress %s>" % self.ip

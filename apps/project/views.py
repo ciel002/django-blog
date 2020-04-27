@@ -5,7 +5,7 @@ from django.shortcuts import render
 from redis import StrictRedis
 
 from project.forms import EmailForm
-from project.models import Project, Yzb
+from project.models import Project, Yzb, YzbVisit
 from utils.pagination import pagination
 from utils.template import template_context
 
@@ -18,6 +18,14 @@ def index_view(request):
 
 
 def yzb_view(request):
+    # 增加访问数
+    if 'HTTP_X_FORWARDED_FOR' in request.META:
+        ip = request.META.get('HTTP_X_FORWARDED_FOR')
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    YzbVisit.objects.create(ip=ip, url=request.path)
+
+    # 查询
     year = request.GET.get('year', '')
     code = request.GET.get('code', '')
     tj = request.GET.get('tj', '')
