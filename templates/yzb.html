@@ -19,12 +19,10 @@
                                                 data-url="?code={{ code }}&tj={{ tj }}&order={{ order }}">全部年份
                                         </option>
                                         <option {% if year == "2019" %}selected{% endif %}
-                                                data-url="?year=2019&code={{ code }}&tj={{ tj }}&order={{ order }}">
-                                            2019
+                                                data-url="?year=2019&code={{ code }}&tj={{ tj }}&order={{ order }}">2019
                                         </option>
                                         <option {% if year == "2018" %}selected{% endif %}
-                                                data-url="?year=2018&code={{ code }}&tj={{ tj }}&order={{ order }}">
-                                            2018
+                                                data-url="?year=2018&code={{ code }}&tj={{ tj }}&order={{ order }}">2018
                                         </option>
                                     </select>
                                     <select id="yzb-code" name="code" class="span3 yzb-s">
@@ -140,9 +138,27 @@
 {% block bottom_javascript %}
     <script>
         $(function () {
+            /*
             $(".yzb-s").change(function () {
                 window.location.href = $(this).children('option:selected').data('url');
             });
+            */
+            var js_obj1 = $(".yzb-s").get(0);
+            var js_obj2 = $(".yzb-s").get(1);
+            var js_obj3 = $(".yzb-s").get(2);
+            var js_obj4 = $(".yzb-s").get(3);
+            js_obj1.addEventListener("change", function () {
+                window.location.href = $(this).children('option:selected').data('url');
+            }, false);
+            js_obj2.addEventListener("change", function () {
+                window.location.href = $(this).children('option:selected').data('url');
+            }, false);
+            js_obj3.addEventListener("change", function () {
+                window.location.href = $(this).children('option:selected').data('url');
+            }, false);
+            js_obj4.addEventListener("change", function () {
+                window.location.href = $(this).children('option:selected').data('url');
+            }, false);
         });
     </script>
 {% endblock %}
