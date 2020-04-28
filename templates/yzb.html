@@ -15,53 +15,56 @@
                             <div class="yzb-select">
                                 <div class="controls">
                                     <select id="yzb-year" name="year" class="span3 yzb-s">
-                                        <option {% if year == '' %}selected{% endif %}
+                                        <option value="" {% if year == '' %}selected{% endif %}
                                                 data-url="?code={{ code }}&tj={{ tj }}&order={{ order }}">全部年份
                                         </option>
-                                        <option {% if year == "2019" %}selected{% endif %}
+                                        <option value="2019" {% if year == "2019" %}selected{% endif %}
                                                 data-url="?year=2019&code={{ code }}&tj={{ tj }}&order={{ order }}">2019
                                         </option>
-                                        <option {% if year == "2018" %}selected{% endif %}
+                                        <option value="2018" {% if year == "2018" %}selected{% endif %}
                                                 data-url="?year=2018&code={{ code }}&tj={{ tj }}&order={{ order }}">2018
                                         </option>
                                     </select>
                                     <select id="yzb-code" name="code" class="span3 yzb-s">
-                                        <option {% if code == '' %}{% endif %}
+                                        <option value="" {% if code == '' %}{% endif %}
                                                 data-url="?year={{ year }}&tj={{ tj }}&order={{ order }}">{{ x.code_name }}全部专业
                                         </option>
                                         {% for x in codes %}
-                                            <option {% if x.code == code %}selected{% endif %}
+                                            <option value="{{ x.code }}" {% if x.code == code %}selected{% endif %}
                                                     data-url="?year={{ year }}&code={{ x.code }}&tj={{ tj }}&order={{ order }}">{{ x.code_name }}</option>
                                         {% endfor %}
                                     </select>
                                     <select id="yzb-tj" name="tj" class="span3 yzb-s">
-                                        <option {% if tj == '' %}selected{% endif %}
+                                        <option value="" {% if tj == '' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&order={{ order }}">全部类型
                                         </option>
-                                        <option {% if tj == '0' %}selected{% endif %}
+                                        <option value="0" {% if tj == '0' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&tj=0&order={{ order }}">一志愿
                                         </option>
-                                        <option {% if tj == '1' %}selected{% endif %}
+                                        <option value="1" {% if tj == '1' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&tj=1&order={{ order }}">调剂
                                         </option>
                                     </select>
                                     <select id="yzb-order" name="order" class="span3 yzb-s">
-                                        <option {% if order == '' %}selected{% endif %}
+                                        <option value="" {% if order == '' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}">排序：考生编号
                                         </option>
-                                        <option {% if order == 'chushi' %}selected{% endif %}
+                                        <option value="chushi" {% if order == 'chushi' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}&order=chushi">
                                             排序：初试分数
                                         </option>
-                                        <option {% if order == 'fushi' %}selected{% endif %}
+                                        <option value="fushi" {% if order == 'fushi' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}&order=fushi">
                                             排序：复试分数
                                         </option>
-                                        <option {% if order == 'zongfen' %}selected{% endif %}
+                                        <option value="zongfen" {% if order == 'zongfen' %}selected{% endif %}
                                                 data-url="?year={{ year }}&code={{ code }}&tj={{ tj }}&order=zongfen">
                                             排序：总分数
                                         </option>
                                     </select>
+                                </div>
+                                <div class="controls">
+                                    <a id="yzb-summit" class="btn hidden-desktop" style="margin: 0 auto" href="javascript:">查询</a>
                                 </div>
                             </div>
                             <div class="yzb-info">
@@ -137,28 +140,20 @@
 {% endblock %}
 {% block bottom_javascript %}
     <script>
+        var summit = document.getElementById("yzb-summit");
+        summit.addEventListener('touchend', function (e) {
+            var year = $("#yzb-year").children('option:selected').val();
+            var code = $("#yzb-code").children('option:selected').val();
+            var tj = $("#yzb-tj").children('option:selected').val();
+            var order = $("#yzb-order").children('option:selected').val();
+            url = "?year=" + year + "&code=" + code + "&tj=" + tj + "&order=" + order;
+            window.location.href = url;
+        });
+
         $(function () {
-            /*
             $(".yzb-s").change(function () {
                 window.location.href = $(this).children('option:selected').data('url');
             });
-            */
-            var js_obj1 = $(".yzb-s").get(0);
-            var js_obj2 = $(".yzb-s").get(1);
-            var js_obj3 = $(".yzb-s").get(2);
-            var js_obj4 = $(".yzb-s").get(3);
-            js_obj1.addEventListener("change", function () {
-                window.location.href = $(this).children('option:selected').data('url');
-            }, false);
-            js_obj2.addEventListener("change", function () {
-                window.location.href = $(this).children('option:selected').data('url');
-            }, false);
-            js_obj3.addEventListener("change", function () {
-                window.location.href = $(this).children('option:selected').data('url');
-            }, false);
-            js_obj4.addEventListener("change", function () {
-                window.location.href = $(this).children('option:selected').data('url');
-            }, false);
         });
     </script>
 {% endblock %}
