@@ -42,7 +42,7 @@ def yzb_view(request):
         yzb_while['code'] = code
     if tj:
         yzb_while['is_tj'] = tj
-    infos = Yzb.objects.filter(**yzb_while).order_by('num')
+    infos = Yzb.objects.filter(**yzb_while).order_by('-num')
     if order:
         if order == 'zongfen':
             infos = infos.annotate(zongfen=F('chushi') + F('fushi')).order_by('-zongfen')
