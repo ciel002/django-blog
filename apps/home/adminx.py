@@ -3,8 +3,7 @@ from home.models import Banner, ContactEmail, WebVisit
 
 
 class BannerAdmin(object):
-    # model_icon = 'fa fa-sliders'
-    model_icon = 'fa fa-list'
+    model_icon = 'fa fa-sliders'
     list_display = ['image', 'post', 'add_time']
 
     # 疑问!!!
