@@ -1,10 +1,25 @@
 from django.db import models
 
-
 # Create your models here.
 from django.utils.timezone import now
 
 from blog.models import Post
+
+
+class WebVisit(models.Model):
+    ip = models.GenericIPAddressField(verbose_name='IP地址', null=False)
+    url = models.URLField(verbose_name='访问的地址', null=False)
+    add_time = models.DateTimeField(default=now)
+
+    class Meta:
+        verbose_name = '网站访问'
+        verbose_name_plural = verbose_name
+
+    def __str__(self):
+        return "<WebVisit IpAddress %s>" % self.ip
+
+    def __repr__(self):
+        return "<WebVisit IpAddress %s>" % self.ip
 
 
 class Banner(models.Model):

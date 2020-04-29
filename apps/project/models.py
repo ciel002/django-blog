@@ -67,12 +67,12 @@ class YzbUniversityName(models.Model):
 
 class YzbVisit(models.Model):
     ip = models.GenericIPAddressField(verbose_name='IP地址', null=False)
-    region = models.CharField(max_length=40, verbose_name='归属地', default="")
+    # region = models.CharField(max_length=40, verbose_name='归属地', default="")
     url = models.URLField(verbose_name='访问的地址', null=False)
     add_time = models.DateTimeField(default=now)
 
     class Meta:
-        verbose_name = '燕大研招办|高校名称代码'
+        verbose_name = '访问记录|燕大录取信息'
         verbose_name_plural = verbose_name
 
     def __str__(self):

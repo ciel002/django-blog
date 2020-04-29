@@ -1,6 +1,5 @@
 import xadmin
-from home.models import Banner, ContactEmail
-from xadmin.views import ModelAdminView
+from home.models import Banner, ContactEmail, WebVisit
 
 
 class BannerAdmin(object):
@@ -12,9 +11,6 @@ class BannerAdmin(object):
         return True
 
 
-xadmin.site.register(Banner, BannerAdmin)
-
-
 class ContactEmailAdmin(object):
     model_icon = 'fa fa-paper-plane'
     list_display = ['nickname', 'email', 'message', 'add_time']
@@ -22,4 +18,13 @@ class ContactEmailAdmin(object):
     list_filter = ('add_time',)  # 右侧过滤选项
 
 
+class WebVisitAdmin(object):
+    model_icon = 'fa fa-list'
+    list_display = ['ip', 'url', 'add_time']
+    search_fields = ('ip', 'url')
+    list_filter = ('add_time',)
+
+
+xadmin.site.register(Banner, BannerAdmin)
 xadmin.site.register(ContactEmail, ContactEmailAdmin)
+xadmin.site.register(WebVisit, WebVisitAdmin)

@@ -11,7 +11,7 @@ class ProjectXadmin(object):
 
 class YzbVisitXadmin(object):
     model_icon = 'fa fa-list'
-    list_display = ['ip', 'region', 'url', 'add_time']
+    list_display = ['ip', 'url', 'add_time']
     search_fields = ('ip', 'url')
     list_filter = ('add_time',)
 

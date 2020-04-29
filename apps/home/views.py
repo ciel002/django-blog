@@ -5,10 +5,12 @@ from django.shortcuts import render
 from blog.models import Post
 from home.forms import ContactEmailForm
 from home.models import Banner
+from utils.decorators import increase_web_visit
 from utils.email_util import send_contact_mail
 from utils.template import template_context
 
 
+@increase_web_visit
 def index_view(request):
     sliders = Banner.objects.order_by("add_time").all()[:5:-1]
     posts = Post.objects.order_by("-add_time").all()[:4]
@@ -16,11 +18,13 @@ def index_view(request):
     return render(request, 'index.html', context)
 
 
+@increase_web_visit
 def contact_view(request):
     context = template_context(tag='contact')
     return render(request, 'contact.html', context)
 
 
+@increase_web_visit
 def contact_send_mail_view(request):
     if request.method == 'POST':
         form = ContactEmailForm(request.POST)

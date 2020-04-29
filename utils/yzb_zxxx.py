@@ -1,3 +1,4 @@
+from datetime import datetime
 from email.mime.text import MIMEText
 from email.utils import formataddr
 
@@ -25,7 +26,7 @@ def send_mail(to, title, url):
 
         server = smtplib.SMTP_SSL("smtp.163.com", 465)  # 发件人邮箱中的SMTP服务器，端口是25
         server.login(user=user, password=password)  # 括号中对应的是发件人邮箱账号、邮箱密码
-        server.sendmail(sender, to, message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
+        server.sendmail(sender, ['1102839480@qq.com'], message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
         server.quit()  # 关闭连接
     except Exception as e:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
         ret = False
@@ -38,6 +39,7 @@ def yzb_zxxx():
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36"
         }
         while True:
+            print(datetime.now(), ':关闭睡眠，获取数据')
             response = requests.get("https://zsjyc.ysu.edu.cn/ssszsxxw/zxxx.htm", headers=headers)
             html = etree.HTML(response.content.decode('utf-8'))
             trs = html.xpath("//tr[@class='list1']")
@@ -59,6 +61,7 @@ def yzb_zxxx():
                             print("发送失败")
                     except smtplib.SMTPException:
                         print("Error: 无法发送邮件")
+            print(datetime.now(), ':开启睡眠')
             sleep(5 * 60)
 
 

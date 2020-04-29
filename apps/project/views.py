@@ -6,11 +6,12 @@ from redis import StrictRedis
 
 from project.forms import EmailForm
 from project.models import Project, Yzb, YzbVisit
-from utils.ip import ip2_region_by_138
+from utils.decorators import increase_web_visit, timeit
 from utils.pagination import pagination
 from utils.template import template_context
 
 
+@increase_web_visit
 def index_view(request):
     projects = Project.objects.filter(show=True).all()
 
@@ -18,14 +19,15 @@ def index_view(request):
     return render(request, 'project.html', context)
 
 
+@timeit
 def yzb_view(request):
     # 增加访问数
     if 'HTTP_X_FORWARDED_FOR' in request.META:
         ip = request.META.get('HTTP_X_FORWARDED_FOR')
     else:
         ip = request.META.get('REMOTE_ADDR')
-    region = ip2_region_by_138(ip)
-    YzbVisit.objects.create(ip=ip, region=region, url=request.path)
+    # region = ip2_region_by_138(ip)
+    YzbVisit.objects.create(ip=ip, region="", url=request.path)
 
     # 查询
     year = request.GET.get('year', '')
@@ -40,7 +42,7 @@ def yzb_view(request):
         yzb_while['code'] = code
     if tj:
         yzb_while['is_tj'] = tj
-    infos = Yzb.objects.filter(**yzb_while)
+    infos = Yzb.objects.filter(**yzb_while).order_by('-num')
     if order:
         if order == 'zongfen':
             infos = infos.annotate(zongfen=F('chushi') + F('fushi')).order_by('-zongfen')
@@ -57,6 +59,7 @@ def yzb_view(request):
     return render(request, 'yzb.html', context=context)
 
 
+@increase_web_visit
 def yzb_zxxx_view(request):
     if request.method == 'GET':
         context = template_context(tag='project')
@@ -77,6 +80,7 @@ def yzb_zxxx_view(request):
             return render(request, 'yzb_zxxx.html', context=context)
 
 
+@increase_web_visit
 def yzb_unzxxx_view(request):
     context = template_context(tag='project')
     return render(request, 'yzb_zxxx.html', context=context)
