@@ -11,7 +11,7 @@ class BannerAdmin(object):
         return True
 
 
-xadmin.site.register(Banner, BannerAdmin)
+# xadmin.site.register(Banner, BannerAdmin)
 
 
 class ContactEmailAdmin(object):
