@@ -18,9 +18,6 @@ class WebVisit(models.Model):
     def __str__(self):
         return "<WebVisit IpAddress %s>" % self.ip
 
-    def __repr__(self):
-        return "<WebVisit IpAddress %s>" % self.ip
-
 
 class Banner(models.Model):
     image = models.ImageField(upload_to='banner/', verbose_name='轮播图')
