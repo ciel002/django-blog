@@ -7,6 +7,9 @@ class CategoryAdmin(object):
     list_display = ['name', 'sub_name']
 
 
+xadmin.site.register(Category, CategoryAdmin)
+
+
 class PostAdmin(object):
     model_icon = 'fa fa-file-text'
     list_display = ['title', 'category', 'add_time']
@@ -16,5 +19,4 @@ class PostAdmin(object):
     readonly_fields = ('click_num',)
 
 
-xadmin.site.register(Category, CategoryAdmin)
 xadmin.site.register(Post, PostAdmin)

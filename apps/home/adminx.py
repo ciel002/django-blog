@@ -11,11 +11,17 @@ class BannerAdmin(object):
         return True
 
 
+xadmin.site.register(Banner, BannerAdmin)
+
+
 class ContactEmailAdmin(object):
     model_icon = 'fa fa-paper-plane'
     list_display = ['nickname', 'email', 'message', 'add_time']
     search_fields = ('nickname', 'email')  # 列表包含根据指定字段搜索
     list_filter = ('add_time',)  # 右侧过滤选项
+
+
+xadmin.site.register(ContactEmail, ContactEmailAdmin)
 
 
 class WebVisitAdmin(object):
@@ -25,6 +31,4 @@ class WebVisitAdmin(object):
     list_filter = ('add_time',)
 
 
-xadmin.site.register(Banner, BannerAdmin)
-xadmin.site.register(ContactEmail, ContactEmailAdmin)
 xadmin.site.register(WebVisit, WebVisitAdmin)

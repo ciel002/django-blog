@@ -4,7 +4,7 @@ import xadmin
 from gallery.models import Picture
 
 
-class PictureXadmin(object):
+class PictureAdmin(object):
     model_icon = 'fa fa-picture-o'
     list_display = ['title', 'alt', 'image', 'image_data', 'add_time']
     list_filter = ['title', 'add_time']
@@ -21,4 +21,4 @@ class PictureXadmin(object):
     image_data.short_description = u'图片'
 
 
-xadmin.site.register(Picture, PictureXadmin)
+xadmin.site.register(Picture, PictureAdmin)
