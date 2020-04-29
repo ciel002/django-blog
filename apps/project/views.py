@@ -2,12 +2,11 @@ from django.db.models import F
 from django.shortcuts import render
 
 # Create your views here.
-from redis import StrictRedis
-
 from project.forms import EmailForm
 from project.models import Project, Yzb, YzbVisit
 from utils.decorators import increase_web_visit, timeit
 from utils.pagination import pagination
+from utils.redis_pool import get_redis
 from utils.template import template_context
 
 
@@ -70,7 +69,7 @@ def yzb_zxxx_view(request):
             error = form.errors.get_json_data()['email'][0]['message']
             context = template_context(tag='project', error=error)
             return render(request, 'yzb_zxxx.html', context=context)
-        with StrictRedis(host='39.107.25.30', port=6379, db=0, password='123456') as redis:
+        with get_redis() as redis:
             ret = True
             try:
                 redis.sadd('yzb:zxxx_to', form.cleaned_data.get('email'))
