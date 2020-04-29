@@ -29,8 +29,8 @@ urlpatterns = [
     path('admin/', xadmin.site.urls),
 
     # 静态文件
-    re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}, name='static'),
-    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
+    # re_path(r'^static/(?P<path>.*)$', serve, {'document_root': settings.STATIC_ROOT}, name='static'),
+    # re_path(r'^media/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}, name='media'),
 
     # 项目
     path('hearthstone/', include('hearthstone.urls')),
@@ -40,8 +40,9 @@ urlpatterns = [
     path('mdeditor/', include('mdeditor.urls'))
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_ROOT, document_root=settings.STATIC_ROOT)
+# urlpatterns += static(settings.STATIC_ROOT, document_root=settings.STATIC_ROOT)
+# urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 if settings.DEBUG:
     # static files (images, css, javascript, etc.)
