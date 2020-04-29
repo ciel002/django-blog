@@ -6,7 +6,8 @@ import requests
 import smtplib
 from time import sleep
 from lxml import etree
-from redis import StrictRedis
+
+from utils.redis_pool import get_redis
 
 sender = 'ling1ciel@163.com'
 user = 'ling1ciel@163.com'
@@ -34,7 +35,7 @@ def send_mail(to, title, url):
 
 
 def yzb_zxxx():
-    with StrictRedis(host='39.107.25.30', port=6379, db=0, password='123456') as redis:
+    with get_redis() as redis:
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.87 Safari/537.36"
         }
