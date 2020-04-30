@@ -648,7 +648,9 @@ p {
     float: left;
     line-height: 18px;
     padding-left: 8px;
+    padding-right: 8px;
     font-size: 12px;
+    border-right: 1px solid #7f7f7f;
 }
 
 .name-author a {
@@ -656,8 +658,9 @@ p {
     outline: none;
 }
 
-.comments {
-    float: right;
+.category {
+    float: left;
+    padding-left: 8px;
     line-height: 18px;
     text-decoration: none;
     font-size: 12px;

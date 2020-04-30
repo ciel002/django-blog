@@ -34,7 +34,10 @@
                                         <h3><a href="{% url 'blog:post' post.title %}">{{ post.title }}</a></h3>
                                         <time datetime="2012-11-08" class="date-1">{{ post.add_time }}</time>
                                         <div class="name-author">by <a href="#">Ciel</a></div>
-                                        {#                                        <a href="#" class="comments">9 comments</a>#}
+                                        {% for category in post.category.all %}
+                                            <a href="{% url 'blog:index_category' category.sub_name %}"
+                                               class="category">{{ category.name }}</a>
+                                        {% endfor %}
                                         <div class="clear"></div>
                                         <img alt="" src="{{ post.image.url }}">
                                         {% if post.abstract %}
