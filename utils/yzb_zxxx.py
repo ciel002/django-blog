@@ -7,7 +7,7 @@ import smtplib
 from time import sleep
 from lxml import etree
 
-from utils.redis_pool import get_redis
+from .redis_pool import get_redis
 
 sender = 'ling1ciel@163.com'
 user = 'ling1ciel@163.com'
