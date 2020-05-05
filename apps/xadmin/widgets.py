@@ -30,7 +30,7 @@ class AdminDateWidget(forms.DateInput):
             final_attrs.update(attrs)
         super(AdminDateWidget, self).__init__(attrs=final_attrs, format=format)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         input_html = super(AdminDateWidget, self).render(name, value, attrs)
         return mark_safe(
             '<div class="input-group date bootstrap-datepicker"><span class="input-group-addon"><i class="fa fa-calendar"></i></span>%s'
@@ -50,7 +50,7 @@ class AdminTimeWidget(forms.TimeInput):
             final_attrs.update(attrs)
         super(AdminTimeWidget, self).__init__(attrs=final_attrs, format=format)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         input_html = super(AdminTimeWidget, self).render(name, value, attrs)
         return mark_safe(
             '<div class="input-group time bootstrap-clockpicker"><span class="input-group-addon"><i class="fa fa-clock-o">'
@@ -76,7 +76,7 @@ class AdminSplitDateTime(forms.SplitDateTimeWidget):
         # we want to define widgets.
         forms.MultiWidget.__init__(self, widgets, attrs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if DJANGO_11:
             input_html = [ht for ht in super(AdminSplitDateTime, self).render(name, value, attrs).split('><') if
                           ht != '']
@@ -99,7 +99,7 @@ class AdminSplitDateTime(forms.SplitDateTimeWidget):
 
 class AdminRadioInput(RadioChoiceInput):
 
-    def render(self, name=None, value=None, attrs=None, choices=()):
+    def render(self, name=None, value=None, attrs=None, renderer=None, choices=()):
         name = name or self.name
         value = value or self.value
         attrs = attrs or self.attrs
@@ -135,7 +135,7 @@ class AdminRadioSelect(forms.RadioSelect):
 
 class AdminCheckboxSelect(forms.CheckboxSelectMultiple):
 
-    def render(self, name, value, attrs=None, choices=()):
+    def render(self, name, value, attrs=None, renderer=None, choices=()):
         if value is None:
             value = []
         has_id = attrs and 'id' in attrs

@@ -29,7 +29,14 @@ def send_mail(to, title, url):
         server.login(user=user, password=password)  # 括号中对应的是发件人邮箱账号、邮箱密码
         server.sendmail(sender, to, message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
         server.quit()  # 关闭连接
-    except Exception as e:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
+    except smtplib.SMTPSenderRefused as e:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
+        print(e)
+        ret = False
+    except smtplib.SMTPRecipientsRefused as e:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
+        print(e)
+        ret = False
+    except smtplib.SMTPDataError as e:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
+        print(e)
         ret = False
     return ret
 

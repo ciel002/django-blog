@@ -1,5 +1,24 @@
 import xadmin
+from xadmin import views
 from home.models import Banner, ContactEmail, WebVisit
+
+
+# 全局xadmin配置
+class BaseSetting(object):
+    enable_themes = True
+    use_bootswatch = True
+
+
+xadmin.site.register(views.BaseAdminView, BaseSetting)
+
+
+class GlobalSettings(object):
+    site_title = '夏尔的实验室'
+    site_footer = '夏尔的实验室'
+    menu_style = 'accordion'  # 左侧导航栏的修改
+
+
+xadmin.site.register(views.CommAdminView, GlobalSettings)
 
 
 class BannerAdmin(object):
