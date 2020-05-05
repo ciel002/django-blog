@@ -40,7 +40,7 @@ class ForeignKeySearchWidget(forms.Widget):
                 attrs.update(extra_attrs)
             return super(ForeignKeySearchWidget, self).build_attrs(attrs, **kwargs)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, renderer=None):
         if DJANGO_11:
             final_attrs = self.build_attrs(attrs, extra_attrs={'name': name})
         else:
