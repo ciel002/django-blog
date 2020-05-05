@@ -12,15 +12,24 @@
                             <div class="post-detail">
                                 <h3>{{ post.title }}</h3>
                                 <div class="post-meta">
-                                    <time datetime="{{ post.add_time }}" class="date-1"><i class="icon-calendar icon-white"></i>
+                                    <time datetime="{{ post.add_time }}" class="date-1"><i
+                                            class="icon-calendar icon-white"></i>
                                         {{ post.add_time }}
                                     </time>
                                     <div class="name-author"><i class="icon-user icon-white"></i> <a href="#">Ciel</a>
                                     </div>
-{#                                    <a href="#" class="comments"><i class="icon-comment icon-white"></i> 11 comments</a>#}
+                                    <div class="post-category">
+                                        <p class="category">分类:</p>
+                                        {% for category in post.category.all %}
+                                            <a href="{% url 'blog:index_category' category.sub_name %}"
+                                               class="category">{{ category.name }}</a>
+                                        {% endfor %}
+                                    </div>
                                 </div>
                                 <div class="clear"></div>
-                                <img alt="" src="{{ post.image.url }}">
+                                {% if post.image %}
+                                    <img alt="" src="{{ post.image.url }}">
+                                {% endif %}
                                 <div class="post-content post-inner">
                                     {{ post.content|safe }}
                                 </div>
@@ -34,8 +43,8 @@
 {% endblock %}
 {% block bottom_javascript %}
     <script>
-    $(function () {
-        $(".post-detail>.clear").next().addClass("center");
-    })
+        $(function () {
+            $(".post-detail>.clear").next().addClass("center");
+        })
     </script>
 {% endblock %}

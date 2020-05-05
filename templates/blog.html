@@ -34,12 +34,17 @@
                                         <h3><a href="{% url 'blog:post' post.title %}">{{ post.title }}</a></h3>
                                         <time datetime="2012-11-08" class="date-1">{{ post.add_time }}</time>
                                         <div class="name-author">by <a href="#">Ciel</a></div>
-                                        {% for category in post.category.all %}
-                                            <a href="{% url 'blog:index_category' category.sub_name %}"
-                                               class="category">{{ category.name }}</a>
-                                        {% endfor %}
+                                        <div>
+                                            <p class="category">分类:</p>
+                                            {% for category in post.category.all %}
+                                                <a href="{% url 'blog:index_category' category.sub_name %}"
+                                                   class="category">{{ category.name }}</a>
+                                            {% endfor %}
+                                        </div>
                                         <div class="clear"></div>
-                                        <img alt="" src="{{ post.image.url }}">
+                                        {% if post.image %}
+                                            <img alt="" src="{{ post.image.url }}">
+                                        {% endif %}
                                         {% if post.abstract %}
                                             <p>{{ post.abstract }}</p>
                                         {% endif %}

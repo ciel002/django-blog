@@ -93,7 +93,11 @@
                             {% for post in posts %}
                                 <li class="span3">
                                     <div class="thumbnail thumbnail-1">
-                                        <img src="{{ post.image.url }}" alt="">
+                                        {% if post.image %}
+                                            <img src="{{ post.image.url }}" alt="">
+                                            {% else %}
+                                            <img src="{% static 'img/blog-1.jpg' %}" alt="" style="width: 220px;height: 94px">
+                                        {% endif %}
                                         <section>
                                             <a href="{% url 'blog:post' post.title %}"><h3>{{ post.title }}</h3></a>
                                             <div class="meta">

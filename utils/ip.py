@@ -1,3 +1,5 @@
+import time
+
 import requests
 from lxml import etree
 
@@ -30,3 +32,13 @@ def ip2_region_by_138(ip):
     except:
         ip_region = '未知区域'
     return ip_region
+
+
+if __name__ == '__main__':
+    for i in range(25):
+        ts = time.time()
+        ip2_region_by_138("120.6.43.109")
+        te = time.time()
+        if i % 5 == 0:
+            print()
+        print('%2.2f sec' % (te - ts), end='\t')

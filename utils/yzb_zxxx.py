@@ -27,7 +27,7 @@ def send_mail(to, title, url):
 
         server = smtplib.SMTP_SSL("smtp.163.com", 465)  # 发件人邮箱中的SMTP服务器，端口是25
         server.login(user=user, password=password)  # 括号中对应的是发件人邮箱账号、邮箱密码
-        server.sendmail(sender, ['1102839480@qq.com'], message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
+        server.sendmail(sender, to, message.as_string())  # 括号中对应的是发件人邮箱账号、收件人邮箱账号、发送邮件
         server.quit()  # 关闭连接
     except Exception as e:  # 如果 try 中的语句没有执行，则会执行下面的 ret=False
         ret = False

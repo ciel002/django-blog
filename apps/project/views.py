@@ -26,7 +26,7 @@ def yzb_view(request):
     else:
         ip = request.META.get('REMOTE_ADDR')
     # region = ip2_region_by_138(ip)
-    YzbVisit.objects.create(ip=ip, url=request.path)
+    YzbVisit.objects.create(ip=ip, url=request.get_full_path())
 
     # 查询
     year = request.GET.get('year', '')
