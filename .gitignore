@@ -34,3 +34,13 @@ venv/
 web/__pycache__/
 /web/settings.py
 /web/urls.py
+media/CACHE/
+media/gallery/IMG_0251.JPG
+media/gallery/IMG_0251_LJdbrwz.JPG
+media/gallery/IMG_0255.JPG
+media/gallery/IMG_0277.JPG
+media/gallery/IMG_0281.JPG
+media/gallery/IMG_0299.JPG
+media/gallery/IMG_0300.JPG
+media/gallery/IMG_0318.JPG
+media/post/IMG_0282.JPG

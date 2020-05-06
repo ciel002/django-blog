@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.views.decorators.http import require_POST
+
 from blog.models import Post
 from gallery.models import Picture
 from home.forms import ContactEmailForm
@@ -27,6 +29,7 @@ def contact_view(request):
 
 
 @increase_web_visit
+@require_POST
 def contact_send_mail_view(request):
     if request.method == 'POST':
         form = ContactEmailForm(request.POST)
@@ -37,7 +40,7 @@ def contact_send_mail_view(request):
             if status:
                 return JsonResponse(data={'code': 200})
         else:
-            return JsonResponse(data={'code': -1})
+            return JsonResponse(data={'code': -12})
 
 
 def map_view(request):

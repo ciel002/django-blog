@@ -1,5 +1,6 @@
 import random
 from _md5 import md5
+from threading import Thread
 
 from django.urls import reverse
 
@@ -57,16 +58,19 @@ def parse_token(token):
         return msg
 
 
+def send_async_email(subject, message, from_email, recipient_list):
+    send_mail(subject=subject, message=message, from_email=from_email, recipient_list=recipient_list)
+
+
 def send_contact_mail(nickname, email, message):
     try:
         ContactEmail.objects.create(nickname=nickname, email=email, message=message)
-        status = send_mail("来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com'])
-        if status:
-            return True
-        else:
-            return False
+        # status = send_mail("来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com'])
+        thread = Thread(target=send_async_email, args=["来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com']])
+        thread.start()
+        return True
     except Exception as e:
-        print(e)
+        return False
 
 
 def send_code_mail(to, _type):
