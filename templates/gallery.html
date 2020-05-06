@@ -14,7 +14,9 @@
         {#    ga.src = ('https:' == document.location.protocol ? 'https//ssl' : 'http//www') + '.google-analytics.com/ga.js';#}
         {#    var s = document.getElementsByTagName('script')[0];#}
         {#    s.parentNode.insertBefore(ga, s);#}
-        {#})();#}
+        {#})
+        ();
+        #}
     </script>
 {% endblock %}
 {% block main %}
@@ -29,56 +31,36 @@
                     </article>
                     <div class="clear"></div>
                     <ul class="portfolio clearfix">
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/1.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/2.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/3.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/4.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/5.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/6.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/7.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/8.jpg' %}"></a>
-                        </li>
-                        <div class="clear"></div>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/9.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/10.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/11.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/12.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/13.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/14.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/15.jpg' %}"></a>
-                        </li>
-                        <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                            src="{% static 'img/work/16.jpg' %}"></a>
-                        </li>
+                        {% for picture in pages %}
+                            <li class="box">
+                                <a href="{{ picture.image.url }}" class="magnifier">
+                                    <img alt="{{ picture.alt }}" src="{{ picture.image_270x192.url }}">
+                                </a>
+                            </li>
+                        {% endfor %}
                     </ul>
+                    <div class="pagination pagination-centered">
+                        <ul>
+                            {% if pages.has_previous %}
+                                <li><a class="page-link" href="{% url 'gallery:list' pages.previous_page_number %}">上一页</a></li>
+                            {% else %}
+                                <li class="disabled"><a class="page-link">上一页</a></li>
+                            {% endif %}
+
+                            {% for page_number in page_range %}
+                                <li class="page-item {% if page_number == pages.number %}active{% endif %}"><a
+                                        class="page-link"
+                                        href="{% url 'gallery:list' page_number %}">{{ page_number }}</a>
+                                </li>
+                            {% endfor %}
+
+                            {% if pages.has_next %}
+                                <li><a class="page-link" href="{% url 'gallery:list' pages.next_page_number %}">下一页</a></li>
+                            {% else %}
+                                <li class="disabled"><a class="page-link">下一页</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
