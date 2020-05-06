@@ -65,9 +65,9 @@ def send_async_email(subject, message, from_email, recipient_list):
 def send_contact_mail(nickname, email, message):
     try:
         ContactEmail.objects.create(nickname=nickname, email=email, message=message)
-        # status = send_mail("来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com'])
-        thread = Thread(target=send_async_email, args=["来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com']])
-        thread.start()
+        send_mail("来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com'])
+        # thread = Thread(target=send_async_email, args=["来自主页【联系我】的邮件", message, EMAIL_FROM, ['1102839480@qq.com']])
+        # thread.start()
         return True
     except Exception as e:
         return False
