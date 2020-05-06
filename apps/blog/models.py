@@ -4,7 +4,9 @@ from django.db import models
 
 # Create your models here.
 from django.utils.timezone import now
+from imagekit.models import ImageSpecField
 from mdeditor.fields import MDTextField
+from pilkit.processors import ResizeToFill
 
 
 class Category(models.Model):
@@ -28,6 +30,10 @@ class Post(models.Model):
                              help_text='文章标题。必填，不超过30个字符')
     image = models.ImageField(max_length=200, verbose_name='文章封面', blank=True, upload_to='post/',
                               help_text='文章封面，必填，建议图片尺寸最好为770*(377-399)')
+    image_270x115 = ImageSpecField(source="image", processors=[ResizeToFill(270, 115)], format='JPEG',
+                                   options={'quality': 95})
+    image_740x315 = ImageSpecField(source="image", processors=[ResizeToFill(740, 315)], format='JPEG',
+                                   options={'quality': 95})
     abstract = models.TextField(max_length=300, null=True, blank=True, verbose_name='文章摘要',
                                 help_text='文章摘要，选填，最多不超过300个字符', default="")
     category = models.ManyToManyField(Category, verbose_name='分类', help_text='文章分类。必填，可选多个')

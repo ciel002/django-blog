@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from blog.models import Post
+from gallery.models import Picture
 from home.forms import ContactEmailForm
 from home.models import Banner
 from utils.decorators import increase_web_visit
@@ -14,7 +15,8 @@ from utils.template import template_context
 def index_view(request):
     sliders = Banner.objects.order_by("add_time").all()[:5:-1]
     posts = Post.objects.order_by("-add_time").all()[:4]
-    context = template_context(tag='home', sliders=sliders, posts=posts)
+    pictures = Picture.objects.order_by("-add_time").all()[:8]
+    context = template_context(tag='home', sliders=sliders, posts=posts, pictures=pictures)
     return render(request, 'index.html', context)
 
 

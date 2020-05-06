@@ -27,8 +27,8 @@
                         <h2>你好 世界!</h2>
                         <div>
                             <p>本网站为作者在考研期间所编写！</p>
-{#                            <p>一方面是展示近期的学习成果，方便与大家交流探讨，共同进步。</p>#}
-{#                            <p>另一方面是为了摄影爱好，将照片发布在网站上。</p>#}
+                            {#                            <p>一方面是展示近期的学习成果，方便与大家交流探讨，共同进步。</p>#}
+                            {#                            <p>另一方面是为了摄影爱好，将照片发布在网站上。</p>#}
                         </div>
                     </div>
                 </div>
@@ -47,30 +47,13 @@
                         </article>
                         <div class="clear"></div>
                         <ul class="portfolio clearfix">
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/1.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/2.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/3.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/4.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/5.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/6.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/7.jpg' %}"></a>
-                            </li>
-                            <li class="box"><a href="{% static 'img/image-blank.png' %}" class="magnifier"><img alt=""
-                                                                                                                src="{% static 'img/work/8.jpg' %}"></a>
-                            </li>
+                            {% for picture in pictures %}
+                                <li class="box">
+                                    <a href="{{ picture.image.url }}" class="magnifier">
+                                        <img alt="{{ picture.alt }}" src="{{ picture.image_270x192.url }}">
+                                    </a>
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div>
                 </div>
@@ -78,9 +61,9 @@
             <div class="row-2">
                 <div class="container">
                     <h3>暂未开发</h3>
-{#                    <h3>Easy to Use. Totally Free to Download. Made with love!</h3>#}
-{#                    <p>The complete template is created using the Bootstrap framework, which is highly customizable with#}
-{#                        lots of options.</p>#}
+                    {#                    <h3>Easy to Use. Totally Free to Download. Made with love!</h3>#}
+                    {#                    <p>The complete template is created using the Bootstrap framework, which is highly customizable with#}
+                    {#                        lots of options.</p>#}
                 </div>
             </div>
             <div class="row-1">
@@ -94,28 +77,29 @@
                                 <li class="span3">
                                     <div class="thumbnail thumbnail-1">
                                         {% if post.image %}
-                                            <img src="{{ post.image.url }}" alt="">
-                                            {% else %}
-                                            <img src="{% static 'img/blog-1.jpg' %}" alt="" style="width: 220px;height: 94px">
+                                            <img src="{{ post.image_270x115.url }}" alt="">
+                                        {% else %}
+                                            <img src="{% static 'img/blog-1.jpg' %}" alt=""
+                                                 style="width: 270px;height: 115px">
                                         {% endif %}
                                         <section>
                                             <a href="{% url 'blog:post' post.title %}"><h3>{{ post.title }}</h3></a>
                                             <div class="meta">
-                                                <time datetime="{{ post.add_time }}" class="date-1"><i class="icon-calendar"></i>
+                                                <time datetime="{{ post.add_time }}" class="date-1"><i
+                                                        class="icon-calendar"></i>
                                                     {{ post.add_time }}
                                                 </time>
                                                 <div class="name-author"><i class="icon-user"></i> <a href="#">Ciel</a>
                                                 </div>
-{#                                                <a href="#" class="comments"><i class="icon-comment"></i> 7 comments</a>#}
+                                                {#                                                <a href="#" class="comments"><i class="icon-comment"></i> 7 comments</a>#}
                                             </div>
                                             <div class="clear"></div>
-{#                                            <p>Vivamus sollicitudin libero auctor arcu pulvinar commodo.</p>#}
-                                            <a href="{% url 'blog:post' post.title %}" class="btn btn-1">阅读更多</a></section>
+                                            {#                                            <p>Vivamus sollicitudin libero auctor arcu pulvinar commodo.</p>#}
+                                            <a href="{% url 'blog:post' post.title %}" class="btn btn-1">阅读更多</a>
+                                        </section>
                                     </div>
                                 </li>
                             {% endfor %}
-
-
                         </ul>
                     </div>
                 </div>
