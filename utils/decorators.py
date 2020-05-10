@@ -1,5 +1,6 @@
 import functools
 import time
+from urllib.parse import unquote
 
 from home.models import WebVisit
 
@@ -11,7 +12,8 @@ def increase_web_visit(fun):
             ip = request.META.get('HTTP_X_FORWARDED_FOR')
         else:
             ip = request.META.get('REMOTE_ADDR')
-        WebVisit.objects.create(ip=ip, url=request.get_full_path())
+        # 增加访问数据
+        WebVisit.objects.create(ip=ip, url=unquote(request.get_full_path()))
         return fun(request, *args, **kwargs)
 
     return wrap
