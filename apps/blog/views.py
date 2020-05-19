@@ -22,9 +22,9 @@ def index_view(request, page=1, category_name=''):
     else:
         posts = Post.objects.filter(category__sub_name=category_name, title__contains=keyword).order_by(
             "-add_time").all()
-    pages, page_range = pagination(page=page, queryset=posts, per_page=5)
+    pages, page_range = pagination(page=page, queryset=posts, per_page=2)
 
-    context = template_context(tag='blog', pages=pages, page_range=page_range, categories=categories)
+    context = template_context(tag='blog', pages=pages, page_range=page_range, categories=categories, category_name=category_name)
     return render(request, 'blog.html', context)
 
 

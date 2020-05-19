@@ -57,8 +57,16 @@
                                 <div class="pagination pagination-centered">
                                     <ul>
                                         {% if pages.has_previous %}
-                                            <li><a class="page-link"
-                                                   href="{% url 'blog:index_page' pages.previous_page_number %}">上一页</a>
+                                            <li>
+                                                {% if category_name %}
+                                                    <a class="page-link"
+                                                       href="{% url 'blog:index_category_page' category_name pages.previous_page_number %}">上一页</a>
+
+                                                {% else %}
+                                                    <a class="page-link"
+                                                       href="{% url 'blog:index_page' pages.previous_page_number %}">上一页</a>
+
+                                                {% endif %}
                                             </li>
                                         {% else %}
                                             <li class="disabled"><a class="page-link">上一页</a></li>
@@ -66,15 +74,25 @@
 
                                         {% for page_number in page_range %}
                                             <li class="page-item {% if page_number == pages.number %}active{% endif %}">
-                                                <a
-                                                        class="page-link"
-                                                        href="{% url 'blog:index_page' page_number %}">{{ page_number }}</a>
+                                                {% if category_name %}
+                                                    <a class="page-link"
+                                                       href="{% url 'blog:index_category_page' category_name page_number %}">{{ page_number }}</a>
+                                                {% else %}
+                                                    <a class="page-link"
+                                                       href="{% url 'blog:index_page' page_number %}">{{ page_number }}</a>
+                                                {% endif %}
                                             </li>
                                         {% endfor %}
 
                                         {% if pages.has_next %}
-                                            <li><a class="page-link"
-                                                   href="{% url 'blog:index_page' pages.next_page_number %}">下一页</a>
+                                            <li>
+                                                {% if category_name %}
+                                                    <a class="page-link"
+                                                       href="{% url 'blog:index_category_page' category_name pages.next_page_number %}">下一页</a>
+                                                {% else %}
+                                                    <a class="page-link"
+                                                       href="{% url 'blog:index_page' pages.next_page_number %}">下一页</a>
+                                                {% endif %}
                                             </li>
                                         {% else %}
                                             <li class="disabled"><a class="page-link">下一页</a></li>
@@ -92,7 +110,6 @@
                         <h3 class="extra">搜索</h3>
                         <form id="search" action="{% url 'blog:index' %}" method="GET" accept-charset="utf-8">
                             <div class="clearfix">
-                                {% csrf_token %}
                                 <input type="text" name="s" onBlur="if(this.value=='') this.value=''"
                                        onFocus="if(this.value =='' ) this.value=''">
                                 <a href="#" onClick="document.getElementById('search').submit()"
