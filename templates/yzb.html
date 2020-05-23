@@ -18,6 +18,9 @@
                                         <option value="" {% if year == '' %}selected{% endif %}
                                                 data-url="?code={{ code }}&tj={{ tj }}&order={{ order }}">全部年份
                                         </option>
+                                        <option value="2020" {% if year == "2020" %}selected{% endif %}
+                                                data-url="?year=2018&code={{ code }}&tj={{ tj }}&order={{ order }}">2020
+                                        </option>
                                         <option value="2019" {% if year == "2019" %}selected{% endif %}
                                                 data-url="?year=2019&code={{ code }}&tj={{ tj }}&order={{ order }}">2019
                                         </option>
@@ -64,7 +67,8 @@
                                     </select>
                                 </div>
                                 <div class="controls">
-                                    <a id="yzb-summit" class="btn hidden-desktop" style="margin: 0 auto" href="javascript:">查询</a>
+                                    <a id="yzb-summit" class="btn hidden-desktop" style="margin: 0 auto"
+                                       href="javascript:">查询</a>
                                 </div>
                             </div>
                             <div class="yzb-info">
